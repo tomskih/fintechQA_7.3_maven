@@ -1,37 +1,45 @@
 import com.codeborne.selenide.Configuration;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.open;
-
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class LoginTest {
+    LoginPage loginPage = new LoginPage();
+
     @BeforeClass
-    public static void setup() {
+    public static void setUp() {
         Configuration.baseUrl = "https://www.instagram.com";
+        LoginPage loginPage = new LoginPage();
+        loginPage.open();
+    }
+
+//    @Test
+//    public void checkAvailElementsOnPage() { //проверка наличия всех необходимых элементов на странице
+//        Assert.assertNotNull(loginPage.imgLogin);
+//        Assert.assertNotNull(loginPage.loginInput);
+//        Assert.assertNotNull(loginPage.passInput);
+//        Assert.assertNotNull(loginPage.loginButton);
+//    }
+
+
+    @Test
+    public void submitLoginFormWithIncorrectLoginPass() { // Авторизация по логину-паролю с некорректными данными
+        loginPage.setLogin("51563");
+        loginPage.setPassword("bveregfdgrrgw");
+        loginPage.clickLoginButton();
+        Assert.assertNotNull(loginPage.errorAlert);
     }
 
     @Test
-    public void submitLoginForm() throws InterruptedException {
-        LoginPage loginPage = new LoginPage();
-        loginPage.open();
-        loginPage.setLogin("123456789");
-
-        loginPage.wait(10000);
-        loginPage.setPassword("58865");
-
-    }
- /*   public void userCanSearch() {
-        open("https://google.com/ncr");
-        new LoginPage().searchFor("selenide");
-
-        SearchResultsPage results = new SearchResultsPage();
-        results.getResults().shouldHave(sizeGreaterThan(1));
-        results.getResult(0).shouldHave(text("Selenide: concise UI tests in Java"));
+    public void submitLoginFormWithCorrectLoginPass() { // Авторизация по логину-паролю с корректными данными
+        loginPage.setLogin("change_me");
+        loginPage.setPassword("change_me");
+        loginPage.clickLoginButton();
+      //  Assert.assertNull(loginPage.errorAlert);
+        Assert.assertEquals("https://www.instagram.com/", getWebDriver().getCurrentUrl());
     }
 
-  */
+
 }

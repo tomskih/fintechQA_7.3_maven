@@ -6,14 +6,11 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.page;
 
 public class LoginPage {
-    private WebDriver driver;
-    private By imgLogin = By.className("V64Sp");
-    public String login;
-    public String pass;
 
     public By loginInput = By.name("username");
     public By passInput = By.name("password");
-    private By loginButton = By.xpath("//button[@type='submit']");
+    public By loginButton = By.xpath("//button[@type='submit']");
+    public By errorAlert = By.id("slfErrorAlert");
 
     public LoginPage open() {
         Selenide.open("/");
@@ -21,15 +18,22 @@ public class LoginPage {
     }
 
     public void setLogin(String login){
-        driver.findElement(loginInput).sendKeys(login);
+
+        $(loginInput).setValue(login);
     }
 
     public void setPassword(String pass){
-        driver.findElement(passInput).sendKeys(pass);
+        $(passInput).setValue(pass);
     }
 
     public void clickLoginButton(){
-        driver.findElement(loginButton).click();
-
+        $(loginButton).click();
     }
+
+    public void loginWithLoginPass(LoginPage loginPage) {
+        loginPage.setLogin("+79501960484");
+        loginPage.setPassword("sK14Sat06dTVV0rK");
+        loginPage.clickLoginButton();
+    }
+
 }
