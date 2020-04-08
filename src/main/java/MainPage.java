@@ -1,3 +1,4 @@
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -8,13 +9,20 @@ import static com.codeborne.selenide.Selenide.$$;
 public class MainPage {
     public By navBar = By.tagName("nav");
     public By contentBox = By.tagName("main");
-    public By modalEnableNotifications = By.xpath("//div[@role='dialog']");
     public By modalButtonNotEnableNotify = By.className("HoLwm");
-    //public By searchInput = By.xpath("//div[@role='dialog']")
+    public By searchInput = By.xpath("//input[@placeholder='Поиск']");
+    public By searchResults = By.className("fuqBx");
 
     public MainPage open() {
         Selenide.open("/");
         return this;
+    }
+
+    public void setSearchValue(String searchValue){
+        $(searchInput).setValue(searchValue);
+    }
+    public void isSearchResultsVisible(){
+        $(searchResults).waitUntil(Condition.visible, 30000);
     }
 
 

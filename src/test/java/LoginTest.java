@@ -15,15 +15,6 @@ public class LoginTest {
         loginPage.open();
     }
 
-//    @Test
-//    public void checkAvailElementsOnPage() { //проверка наличия всех необходимых элементов на странице
-//        Assert.assertNotNull(loginPage.imgLogin);
-//        Assert.assertNotNull(loginPage.loginInput);
-//        Assert.assertNotNull(loginPage.passInput);
-//        Assert.assertNotNull(loginPage.loginButton);
-//    }
-
-
     @Test
     public void submitLoginFormWithIncorrectLoginPass() { // Авторизация по логину-паролю с некорректными данными
         loginPage.setLogin("51563");
@@ -37,7 +28,7 @@ public class LoginTest {
         loginPage.setLogin("change_me");
         loginPage.setPassword("change_me");
         loginPage.clickLoginButton();
-      //  Assert.assertNull(loginPage.errorAlert);
+        Assert.assertNotNull(loginPage.errorAlert);
         Assert.assertEquals("https://www.instagram.com/", getWebDriver().getCurrentUrl());
     }
 

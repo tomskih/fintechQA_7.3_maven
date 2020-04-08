@@ -44,9 +44,9 @@ public class ViewContentTest {
     }
 
     @Test
-    public void search() { //проверяем, что при клике на ссылку в заголовке мы попадаем на нужный профиль
-        article.articleHeaderLink.click();
-        Assert.assertTrue(article.articleHeaderLink.toString().contains(article.articleHeaderLinkText));
+    public void search() { //поиск, где можно использовать явное ожидание
+        mainPage.setSearchValue("selenide");
+        mainPage.isSearchResultsVisible();
     }
 
 
